@@ -36,7 +36,5 @@ jobs:
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: binaries
-          path: |
-            bld/*.rpm
-            bld/*s.zip
+          name: tarball
+          path: bld/cross-native.tgz

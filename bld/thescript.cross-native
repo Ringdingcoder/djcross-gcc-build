@@ -25,4 +25,7 @@ target=i586-pc-msdosdjgpp
 
 make -j2
 mkdir ../tmpinst
-make install DESTDIR=../tmpinst
+make install DESTDIR=/bld/tmpinst
+
+cd ../tmpinst
+tar czvf ../cross-native.tgz *
