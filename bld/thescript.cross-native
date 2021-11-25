@@ -4,17 +4,29 @@ set -e
 
 cd /bld
 curl -O https://stefanr-dump.s3.eu-west-1.amazonaws.com/gcc1030s.zip
-unzip gcc1030s.zip
-mkdir cross-native
-cd cross-native
+curl -O http://www.delorie.com/pub/djgpp/current/v2gnu/gmp621b.zip
+curl -O http://www.delorie.com/pub/djgpp/current/v2gnu/mpc110b.zip
+curl -O http://www.delorie.com/pub/djgpp/current/v2gnu/mpfr410b.zip
+curl -O http://www.delorie.com/pub/djgpp/current/v2tk/zlb1211b.zip
+
+unzip -q gcc1030s.zip
+
+target=i586-pc-msdosdjgpp
+cd /usr/$target
+unzip /bld/gmp621b.zip
+unzip /bld/mpc110b.zip
+unzip /bld/mpfr410b.zip
+unzip /bld/zlb1211b.zip
+mv include/* sys-include/
+
+mkdir /bld/cross-native
+cd /bld/cross-native
 
 export ac_cv_c_bigendian=no
 
-target=i586-pc-msdosdjgpp
-
 ../gnu/gcc-10.30/configure \
     --prefix=/usr \
-    --host=$ttarget \
+    --host=$target \
     --target=$target \
     --enable-languages="c,c++" \
     --with-native-system-header-dir=/usr/$target/sys-include \
