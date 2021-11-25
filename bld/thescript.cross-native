@@ -1,0 +1,24 @@
+#! /bin/bash
+
+set -e
+
+cd /bld
+curl -O https://stefanr-dump.s3.eu-west-1.amazonaws.com/gcc1030s.zip
+unzip gcc1030s.zip
+mkdir cross-native
+cd cross-native
+
+export ac_cv_c_bigendian=no
+
+target=i586-pc-msdosdjgpp
+
+../gnu/gcc-10.30/configure \
+    --prefix=/usr \
+    --host=$ttarget \
+    --target=$target \
+    --enable-languages="c,c++" \
+    --with-native-system-header-dir=/usr/$target/sys-include \
+    --disable-libstdcxx-pch \
+    --disable-libssp \
+    --enable-lto \
+    --enable-nls || exit 1

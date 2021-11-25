@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Cross-native
 
 # Controls when the workflow will run
 on:
@@ -24,12 +24,14 @@ jobs:
           cd rpms
           curl -O http://www.delorie.com/pub/djgpp/rpms/djcrx-2.05-5.x86_64.rpm
           curl -O http://www.delorie.com/pub/djgpp/rpms/djcross-binutils-2.34-1ap.x86_64.rpm
+          curl -O https://stefanr-dump.s3.eu-west-1.amazonaws.com/djcross-gcc-10.3.0-1ap.x86_64.rpm
+          curl -O https://stefanr-dump.s3.eu-west-1.amazonaws.com/djcross-gcc-c%2B%2B-10.3.0-1ap.x86_64.rpm
 
       - name: Docker build
-        run: docker build -t bld35:now .
+        run: docker build -f Dockerfile.cross-native -t bld35:now .
 
       - name: Docker run
-        run: chmod 777 . bld/ && docker run -v $PWD:/bld bld35:now /thescript
+        run: chmod 777 . bld/ && docker run -v $PWD:/bld bld35:now /thescript.cross-native
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
