@@ -21,4 +21,8 @@ target=i586-pc-msdosdjgpp
     --disable-libstdcxx-pch \
     --disable-libssp \
     --enable-lto \
-    --enable-nls || exit 1
+    --enable-nls
+
+make -j2
+mkdir ../tmpinst
+make install DESTDIR=../tmpinst
