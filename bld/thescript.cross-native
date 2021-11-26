@@ -40,5 +40,9 @@ i586-pc-msdosdjgpp-strip -g gcc/lto-dump.exe gcc/lto1.exe gcc/cc1.exe gcc/cc1plu
 mkdir ../tmpinst
 make install DESTDIR=/bld/tmpinst
 
-cd ../tmpinst
+cd ../tmpinst/usr
+mv include/c++ include/cxx
+mv bin/g++.exe bin/gxx.exe
+mv lib/libstdc++.a lib/libstdcxx.a
+cd ..
 tar czvf ../cross-native.tgz *
