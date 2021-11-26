@@ -36,6 +36,7 @@ export ac_cv_c_bigendian=no
     --enable-nls
 
 make -j2
+i586-pc-msdosdjgpp-strip -g gcc/lto-dump.exe gcc/lto1.exe gcc/cc1.exe gcc/cc1plus.exe
 mkdir ../tmpinst
 make install DESTDIR=/bld/tmpinst
 
