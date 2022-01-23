@@ -1,6 +1,6 @@
 FROM fedora:35
 RUN dnf install -y gcc-c++ make diffutils findutils
-RUN dnf install -y gmp-devel mpfr-devel libmpc-devel zlib-devel unzip
+RUN dnf install -y flex zlib-devel unzip
 RUN useradd -m build
 COPY bld /
 COPY rpms /

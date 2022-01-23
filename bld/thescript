@@ -8,6 +8,7 @@ curl -O http://www.delorie.com/pub/djgpp/rpms/djcross-gcc-10.3.0/djcross-gcc-10.
 rpm -i *.src.rpm
 cd ~/rpmbuild
 diff -u SPECS/*.spec /bld/*.spec || true
-rpmbuild -bb /bld/*.spec
+sn=$(basename SPECS/*.spec)
+rpmbuild -bb /bld/$sn
 mv RPMS/x86_64/*.rpm /bld/bld
 mv BUILD/djcross-*/*s.zip /bld/bld || true
