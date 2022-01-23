@@ -2,14 +2,14 @@
 # Tested on CentOS-6.8, Fedora 25. One may need
 # to modify this file for other RPM based Linux distribution
 
-%define gcc_version 10.3.0
+%define gcc_version 11.2.0
 
-%define gcc_source_name 10.3.0
-%define rpm_version 10.3.0
+%define gcc_source_name 11.2.0
+%define rpm_version 11.2.0
 
-%define gmp_version 6.2.0
-%define mpfr_version 4.0.2
-%define mpc_version 1.1.0
+%define gmp_version 6.2.1
+%define mpfr_version 4.1.0
+%define mpc_version 1.2.1
 %define autoconf_version 2.69
 %define automake_version 1.15.1
 %define target i586-pc-msdosdjgpp
@@ -205,7 +205,7 @@ PATH="$RPM_BUILD_DIR/%{name}-%{version}/tmpinst/bin:$PATH" \
 for fn in gnu/gcc-%{shortver}/COPYING* gnu/gcc-%{shortver}/NEWS gnu/gcc-%{shortver}/README \
    gnu/gcc-%{shortver}/readme.DJGPP ; \
 do \
-      test -e $fn && cp -fv $fn ./; \
+      test -f $fn && cp -fv $fn ./; \
 done
 
 %build
@@ -412,6 +412,7 @@ rm -fr %{buildroot}
 %{_libdir}/gcc/%{target}/%{gcc_version}/libstdc++fs.la
 %{_libdir}/gcc/%{target}/%{gcc_version}/libstdc++.a-gdb.py
 %{_libexecdir}/gcc/%{target}/%{gcc_version}/cc1plus
+%{_libexecdir}/gcc/%{target}/%{gcc_version}/g++-mapper-server
 %{_mandir}/man1/%{target}-g++.1.gz
 
 %if %include_fortran
@@ -466,17 +467,12 @@ rm -fr %{buildroot}
 %endif
 
 %changelog
-* Sat Apr 10 2021 Andris Pavēnis <andris.pavenis@iki.fi>
-- Update to GCC-10.3.0
+* Sun Aug  1 2021 Andris Pavenis <andris.pavenis@iki.fi>
+- Update to gcc-11.2.0
 
-* Fri Jul 24 2020 Andris Pavenis <andris.pavenis@iki.fi>
-- Update to GCC-10.2.0
-
-* Thu May  7 2020 Andris Pavenis <andris.pavenis@iki.fi>
-- Update to GCC-10.1.0
-
-* Fri May  1 2020 Andris Pavenis <andris.pavenis@iki.fi>
-- Branch for upcoming gcc-10
+* Tue Apr 27 2021 Andris Pavenis <andris.pavenis@iki.fi>
+- Update to gcc-11.1.0
+- Update to gmp-6.2.1, mpfr-4.1.0, mpc-1.2.1
 
 * Tue May 15 2018 Andris Pavenis <andris.pavenis@iki.fi>
 - Fix value of macros __DATE__ and __TIME__ for DJGPP host.

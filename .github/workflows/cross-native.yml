@@ -24,8 +24,8 @@ jobs:
           cd rpms
           curl -O http://www.delorie.com/pub/djgpp/rpms/djcrx-2.05-5.x86_64.rpm
           curl -O http://www.delorie.com/pub/djgpp/rpms/djcross-binutils-2.34-1ap.x86_64.rpm
-          curl -O https://stefanr-dump.s3.eu-west-1.amazonaws.com/djcross-gcc-10.3.0-1ap.x86_64.rpm
-          curl -O https://stefanr-dump.s3.eu-west-1.amazonaws.com/djcross-gcc-c%2B%2B-10.3.0-1ap.x86_64.rpm
+          curl -O https://stefanr-dump.s3.eu-west-1.amazonaws.com/djcross-gcc-11.2.0-1ap.x86_64.rpm
+          curl -O https://stefanr-dump.s3.eu-west-1.amazonaws.com/djcross-gcc-c%2B%2B-11.2.0-1ap.x86_64.rpm
 
       - name: Docker build
         run: docker build -f Dockerfile.cross-native -t bld35:now .
