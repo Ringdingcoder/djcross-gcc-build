@@ -7,7 +7,7 @@ curl -O https://stefanr-dump.s3.eu-west-1.amazonaws.com/gcc1030s.zip
 curl -O http://www.delorie.com/pub/djgpp/current/v2gnu/gmp621b.zip
 curl -O http://www.delorie.com/pub/djgpp/current/v2gnu/mpc110b.zip
 curl -O http://www.delorie.com/pub/djgpp/current/v2gnu/mpfr410b.zip
-curl -O http://www.delorie.com/pub/djgpp/current/v2tk/zlb1211b.zip
+curl -O http://www.delorie.com/pub/djgpp/current/v2tk/zlb1212b.zip
 
 unzip -q gcc1030s.zip
 
