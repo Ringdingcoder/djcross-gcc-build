@@ -16,7 +16,7 @@ cd /usr/$target
 unzip /bld/gmp621b.zip
 unzip /bld/mpc110b.zip
 unzip /bld/mpfr410b.zip
-unzip /bld/zlb1211b.zip
+unzip /bld/zlb1212b.zip
 mv include/* sys-include/
 
 mkdir /bld/cross-native
