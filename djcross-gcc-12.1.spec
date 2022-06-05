@@ -2,10 +2,10 @@
 # Tested on CentOS-6.8, Fedora 25. One may need
 # to modify this file for other RPM based Linux distribution
 
-%define gcc_version 11.2.0
+%define gcc_version 12.1.0
 
-%define gcc_source_name 11.2.0
-%define rpm_version 11.2.0
+%define gcc_source_name 12.1.0
+%define rpm_version 12.1.0
 
 %define gmp_version 6.2.1
 %define mpfr_version 4.1.0
@@ -27,7 +27,7 @@
 %define debug_package %{nil}
 
 %if %include_ada
-%define support_ada 1
+%define support_ada 0
 %endif
 
 %if %include_fortran
@@ -467,8 +467,8 @@ rm -fr %{buildroot}
 %endif
 
 %changelog
-* Sun Aug  1 2021 Andris Pavenis <andris.pavenis@iki.fi>
-- Update to gcc-11.2.0
+* Sat May  7 2022 Andris Pavenis <andris.pavenis@iki.fi>
+- Update to gcc-12.1.0
 
 * Tue Apr 27 2021 Andris Pavenis <andris.pavenis@iki.fi>
 - Update to gcc-11.1.0

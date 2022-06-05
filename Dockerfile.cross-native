@@ -4,6 +4,6 @@ RUN dnf install -y flex zlib-devel unzip
 RUN useradd -m build
 COPY bld /
 COPY rpms /
-RUN rpm -ivh /djcrx-2.05-5.x86_64.rpm /djcross-binutils-2.34-1ap.x86_64.rpm /djcross-gcc-11.2.0-1ap.x86_64.rpm /djcross-gcc-c%2B%2B-11.2.0-1ap.x86_64.rpm
+RUN rpm -ivh /djcrx-2.05-5.x86_64.rpm /djcross-binutils-2.34-1ap.x86_64.rpm /djcross-gcc-12.1.0-1ap.x86_64.rpm /djcross-gcc-c%2B%2B-12.1.0-1ap.x86_64.rpm
 RUN find /usr/i586-pc-msdosdjgpp -type d | xargs chmod 777
 USER build
