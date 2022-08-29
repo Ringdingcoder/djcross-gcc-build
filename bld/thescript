@@ -4,7 +4,7 @@ set -e
 
 rpmdev-setuptree
 cd /bld
-curl -O https://stefanr-dump.s3.eu-west-1.amazonaws.com/djcross-gcc-12.1.0-1ap.src.rpm
+curl -O http://www.delorie.com/pub/djgpp/rpms/djcross-gcc-12.2.0/djcross-gcc-12.2.0-1ap.src.rpm
 rpm -i *.src.rpm
 cd ~/rpmbuild
 diff -u SPECS/*.spec /bld/*.spec || true
