@@ -2,10 +2,10 @@
 # Tested on CentOS-6.8, Fedora 25. One may need
 # to modify this file for other RPM based Linux distribution
 
-%define gcc_version 12.2.0
+%define gcc_version 12.1.0
 
-%define gcc_source_name 12.2.0
-%define rpm_version 12.2.0
+%define gcc_source_name 12.1.0
+%define rpm_version 12.1.0
 
 %define gmp_version 6.2.1
 %define mpfr_version 4.1.0
@@ -467,9 +467,6 @@ rm -fr %{buildroot}
 %endif
 
 %changelog
-* Fri Aug 19 2022 Andris Pavenis <andris.pavenis@iki.fi>
-- Update to gcc-12.2.0
-
 * Sat May  7 2022 Andris Pavenis <andris.pavenis@iki.fi>
 - Update to gcc-12.1.0
 

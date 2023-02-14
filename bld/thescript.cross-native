@@ -3,13 +3,13 @@
 set -e
 
 cd /bld
-curl -O https://stefanr-dump.s3.eu-west-1.amazonaws.com/gcc1220s.zip
+curl -O https://stefanr-dump.s3.eu-west-1.amazonaws.com/gcc1210s.zip
 curl -O http://www.delorie.com/pub/djgpp/current/v2gnu/gmp621b.zip
 curl -O http://www.delorie.com/pub/djgpp/current/v2gnu/mpc110b.zip
 curl -O http://www.delorie.com/pub/djgpp/current/v2gnu/mpfr410b.zip
 curl -O http://www.delorie.com/pub/djgpp/current/v2tk/zlb1212b.zip
 
-unzip -q gcc1220s.zip
+unzip -q gcc1210s.zip
 
 target=i586-pc-msdosdjgpp
 cd /usr/$target
@@ -24,7 +24,7 @@ cd /bld/cross-native
 
 export ac_cv_c_bigendian=no
 
-../gnu/gcc-12.20/configure \
+../gnu/gcc-12.10/configure \
     --prefix=/usr \
     --host=$target \
     --target=$target \
