@@ -1,4 +1,4 @@
-FROM fedora:35
+FROM fedora:37
 RUN dnf install -y mock rpmdevtools
 RUN dnf install -y zlib-devel texinfo-tex flex automake gcc gcc-c++
 RUN useradd -m build
