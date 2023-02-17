@@ -9,6 +9,6 @@ rpm -i *.src.rpm
 cd ~/rpmbuild
 diff -u SPECS/*.spec /bld/*.spec || true
 sn=$(basename SPECS/*.spec)
-rpmbuild -bb /bld/$sn
+rpmbuild -bb --noclean /bld/$sn
 mv RPMS/x86_64/*.rpm /bld/bld
 mv BUILD/djcross-*/*s.zip /bld/bld || true
