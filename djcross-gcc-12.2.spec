@@ -46,6 +46,7 @@
 
 %undefine _hardened_build
 %undefine _annotated_build
+%define _lto_cflags %{nil}
 
 Name: djcross-gcc
 Summary:  GCC cross-compiler for target i586-pc-msdosdjgpp
