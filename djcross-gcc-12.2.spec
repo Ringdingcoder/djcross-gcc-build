@@ -45,6 +45,7 @@
 %define languages c,c++%{?support_fortran:,f95}%{?support_objc:,objc,obj-c++}%{?support_ada:,ada}
 
 %undefine _hardened_build
+%undefine _annotated_build
 
 Name: djcross-gcc
 Summary:  GCC cross-compiler for target i586-pc-msdosdjgpp
