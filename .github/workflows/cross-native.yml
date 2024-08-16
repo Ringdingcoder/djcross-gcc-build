@@ -27,6 +27,8 @@ jobs:
         with:
           github-token: ${{ github.token }}
           run-id: ${{ inputs.run-id }}
+      - name: Debug
+        run: ls -lR
 
       - name: Download rpms
         run: |
