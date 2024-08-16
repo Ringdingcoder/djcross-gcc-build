@@ -28,6 +28,9 @@ jobs:
           repository: Ringdingcoder/djgpp-gcc
           run-id: ${{ inputs.run-id }}
 
+      - name: Debug
+        run: ls -lR
+
       - name: Unpack srpm
         run: |
           mkdir rpms
