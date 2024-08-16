@@ -26,6 +26,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           repository: Ringdingcoder/djgpp-gcc
+          github-token: ${{ github.token }}
           run-id: ${{ inputs.run-id }}
 
       - name: Debug
