@@ -6,6 +6,10 @@ name: Cross-native
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      run-id:
+        description: Run id of the cross build (for artifacts)
+        required: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -18,14 +22,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ inputs.run-id }}
+
       - name: Download rpms
         run: |
           mkdir rpms
           cd rpms
           curl -O http://www.delorie.com/pub/djgpp/rpms/djcrx-2.05-5.x86_64.rpm
           curl -O http://www.delorie.com/pub/djgpp/rpms/djcross-binutils-2.34-1ap.x86_64.rpm
-          curl -O https://stefanr-dump.s3.eu-west-1.amazonaws.com/djcross-gcc-12.2.0-1ap.x86_64.rpm
-          curl -O https://stefanr-dump.s3.eu-west-1.amazonaws.com/djcross-gcc-c%2B%2B-12.2.0-1ap.x86_64.rpm
 
       - name: Docker build
         run: docker build -f Dockerfile.cross-native -t bld35:now .

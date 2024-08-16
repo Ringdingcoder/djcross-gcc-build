@@ -3,7 +3,6 @@
 set -e
 
 cd /bld
-curl -O https://stefanr-dump.s3.eu-west-1.amazonaws.com/gcc1220s.zip
 curl -O http://www.delorie.com/pub/djgpp/current/v2gnu/gmp621b.zip
 curl -O http://www.delorie.com/pub/djgpp/current/v2gnu/mpc110b.zip
 curl -O http://www.delorie.com/pub/djgpp/current/v2gnu/mpfr410b.zip
