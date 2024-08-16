@@ -6,7 +6,7 @@ cd /bld
 curl -O http://www.delorie.com/pub/djgpp/current/v2gnu/gmp621b.zip
 curl -O http://www.delorie.com/pub/djgpp/current/v2gnu/mpc110b.zip
 curl -O http://www.delorie.com/pub/djgpp/current/v2gnu/mpfr410b.zip
-curl -O http://www.delorie.com/pub/djgpp/current/v2tk/zlb1212b.zip
+curl -O http://www.delorie.com/pub/djgpp/current/v2tk/zlb13b.zip
 
 unzip -q ../gcc1220s.zip
 
@@ -15,7 +15,7 @@ cd /usr/$target
 unzip /bld/gmp621b.zip
 unzip /bld/mpc110b.zip
 unzip /bld/mpfr410b.zip
-unzip /bld/zlb1212b.zip
+unzip /bld/zlb13b.zip
 mv include/* sys-include/
 
 mkdir /bld/cross-native
