@@ -36,10 +36,10 @@ jobs:
           curl -O http://www.delorie.com/pub/djgpp/rpms/djcross-binutils-2.34-1ap.x86_64.rpm
 
       - name: Docker build
-        run: docker build -t bld35:now .
+        run: docker build -t fedbuild:now .
 
       - name: Docker run
-        run: chmod 777 . bld/ && docker run -v $PWD:/bld bld35:now /thescript
+        run: chmod 777 . bld/ && docker run -v $PWD:/bld fedbuild:now /thescript
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
