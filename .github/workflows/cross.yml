@@ -6,6 +6,10 @@ name: Cross
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      run-id:
+        description: Run id in djgpp-gcc repo (for artifact)
+        required: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -18,9 +22,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Download rpms
+      - name: Download srpm
+        uses: actions/download-artifact@v4
+        with:
+          repository: Ringdingcoder/djgpp-gcc
+          run-id: ${{ inputs.run-id }}
+
+      - name: Unpack srpm
         run: |
           mkdir rpms
+          cd rpms
+          unzip ../rpms.zip
+
+      - name: Download rpms
+        run: |
           cd rpms
           curl -O http://www.delorie.com/pub/djgpp/rpms/djcrx-2.05-5.x86_64.rpm
           curl -O http://www.delorie.com/pub/djgpp/rpms/djcross-binutils-2.34-1ap.x86_64.rpm
