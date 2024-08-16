@@ -29,15 +29,6 @@ jobs:
           github-token: ${{ github.token }}
           run-id: ${{ inputs.run-id }}
 
-      - name: Debug
-        run: ls -lR
-
-      - name: Unpack srpm
-        run: |
-          mkdir rpms
-          cd rpms
-          unzip ../rpms.zip
-
       - name: Download rpms
         run: |
           cd rpms
