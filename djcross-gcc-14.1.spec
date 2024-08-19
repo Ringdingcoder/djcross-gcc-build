@@ -1,11 +1,10 @@
 # Specs file to building RPM of Linux to DJGPP cross-compiler
-# Tested on CentOS-6.8, Fedora 25. One may need
 # to modify this file for other RPM based Linux distribution
 
-%define gcc_version 12.2.0
+%define gcc_version 14.1.0
 
-%define gcc_source_name 12.2.0
-%define rpm_version 12.2.0
+%define gcc_source_name 14.1.0
+%define rpm_version 14.1.0
 
 %define gmp_version 6.2.1
 %define mpfr_version 4.1.0
@@ -66,10 +65,18 @@ Source6: ftp://ftp.gnu.org/gnu/automake/automake-%{automake_version}.tar.gz
 
 Buildroot: %{_tmppath}/%{name}-%{version}-root
 BuildArch: i686 x86_64
-Requires: djcrx djcross-binutils >= 2.30
-BuildRequires: gcc-c++ >= 4.4 djcrx >= 2.05 djcross-binutils >= 2.30
-BuildRequires: zlib-devel glibc-devel texinfo-tex
-BuildRequires:  flex
+Requires: djcrx
+Requires: djcross-binutils >= 2.30
+BuildRequires: gcc-c++ >= 4.4
+%if %include_ada
+BuildRequires: gcc-gnat >= 4.4
+%endif
+BuildRequires: djcrx >= 2.05
+BuildRequires: djcross-binutils >= 2.30
+BuildRequires: zlib-devel
+BuildRequires: glibc-devel
+BuildRequires: /usr/bin/makeinfo
+BuildRequires: flex
 
 %define shortver %(echo %{rpm_version} | sed -e 's:\\.::2g' -e 's:_:-:g')
 %define shortver2 %(echo %{rpm_version} | sed -e 's:\\.::g' -e 's:_:-:g')
@@ -108,12 +115,6 @@ Group: Development/Tools
 Summary: Tools for Linux to DJGPP cross-compiler
 Group: Development/Tools
 
-%if %{create_djgpp_source_zip}
-%package djdocs
-Summary: DJGPP documentation archives for GCC
-Group: Development/Tools
-%endif
-
 %description
 Support of the following programing languages is included:
     C
@@ -151,15 +152,6 @@ Tools for Linux to DJGPP cross-compiler.
 
 At this time there is only fixinc.
 You don not need to install it unless You know why You need it...
-
-%if %{create_djgpp_source_zip}
-%description djdocs
-DJGPP documentation archives for GCC
-
-This RPM is built only to generate and pack PDF, PS and HTML
-documentation archives for DJGPP. It is not intended to
-be used in Linux system
-%endif
 
 #############################################################################
 %if %do_native_bootstrap
@@ -296,6 +288,7 @@ PATH="$RPM_BUILD_DIR/%{name}-%{version}/tmpinst/bin:$PATH" \
 			         --includedir=%{_includedir} \
 			         --libdir=%{_libdir} \
 			         --libexecdir=%{_libexecdir} \
+			         --enable-linker-build-id \
 			         --localstatedir=%{_localstatedir} \
 			         --sharedstatedir=%{_sharedstatedir} \
 			         --mandir=%{_mandir} \
@@ -317,14 +310,6 @@ PATH="$RPM_BUILD_DIR/%{name}-%{version}/tmpinst/bin:$PATH" \
 make %{_smp_mflags} PATH="$RPM_BUILD_DIR/%{name}-%{version}/tmpinst/bin:$PATH" || exit 1
 
 cd ..
-
-# Build DJGPP documentation packages for GCC
-%if %{create_djgpp_source_zip}
-( cd gnu/install.gcc && perl mkdocs.pl )
-for file in gnu/gcc-%{shortver}/COPYING* gnu/gcc-%{shortver}/NEWS gnu/gcc-%{shortver}/README gnu/gcc-%{shortver}/readme.DJGPP; do \
-   test -f $file && cp -fv $file ./
-done
-%endif
 
 %install
 rm -fr %{buildroot}
@@ -376,6 +361,7 @@ rm -fr %{buildroot}
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/float.h
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/gcov.h
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/iso646.h
+%{_libdir}/gcc/%{target}/%{gcc_version}/include/limits.h
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/mm3dnow.h
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/mm_malloc.h
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/stdarg.h
@@ -383,6 +369,7 @@ rm -fr %{buildroot}
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/stdbool.h
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/stddef.h
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/stdfix.h
+%{_libdir}/gcc/%{target}/%{gcc_version}/include/syslimits.h
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/tgmath.h
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/unwind.h
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/varargs.h
@@ -390,6 +377,7 @@ rm -fr %{buildroot}
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/stdalign.h
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/stdnoreturn.h
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/stdint-gcc.h
+%{_libdir}/gcc/%{target}/%{gcc_version}/include/stdckdint.h
 %{_libdir}/gcc/%{target}/%{gcc_version}/include/quadmath*.h
 %{_libexecdir}/gcc/%{target}/%{gcc_version}/cc1
 %{_libexecdir}/gcc/%{target}/%{gcc_version}/collect2
@@ -401,7 +389,9 @@ rm -fr %{buildroot}
 %{_mandir}/man1/%{target}-gcov-dump.1.gz
 %{_mandir}/man1/%{target}-gcov-tool.1.gz
 %{_mandir}/man1/%{target}-lto-dump.1.gz
-%doc COPYING* README readme.DJGPP
+%doc gnu/gcc-%{shortver}/COPYING*
+%doc gnu/gcc-%{shortver}/README
+%doc gnu/gcc-%{shortver}/readme.DJGPP
 
 %files c++
 %defattr(-,root,root)
@@ -414,6 +404,8 @@ rm -fr %{buildroot}
 %{_libdir}/gcc/%{target}/%{gcc_version}/libsupc++.la
 %{_libdir}/gcc/%{target}/%{gcc_version}/libstdc++fs.a
 %{_libdir}/gcc/%{target}/%{gcc_version}/libstdc++fs.la
+%{_libdir}/gcc/%{target}/%{gcc_version}/libstdc++exp.a
+%{_libdir}/gcc/%{target}/%{gcc_version}/libstdc++exp.la
 %{_libdir}/gcc/%{target}/%{gcc_version}/libstdc++.a-gdb.py
 %{_libexecdir}/gcc/%{target}/%{gcc_version}/cc1plus
 %{_libexecdir}/gcc/%{target}/%{gcc_version}/g++-mapper-server
@@ -462,15 +454,10 @@ rm -fr %{buildroot}
 %{_libdir}/gcc/%{target}/%{gcc_version}/install-tools
 %{_libexecdir}/gcc/%{target}/%{gcc_version}/install-tools
 
-%if %{create_djgpp_source_zip}
-%files djdocs
-%defattr(-,root,root)
-%doc gnu/install.gcc/gcc*d.zip
-%doc gnu/install.gcc/gfor*d.zip
-%doc gnu/install.gcc/ada*d.zip
-%endif
-
 %changelog
+* Fri Jan 13 2023 Andris Pavenis <andris.pavenis@iki.fi>
+- Change to master branch for upcoming gcc-13
+
 * Fri Aug 19 2022 Andris Pavenis <andris.pavenis@iki.fi>
 - Update to gcc-12.2.0
 
