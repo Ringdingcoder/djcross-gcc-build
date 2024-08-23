@@ -22,6 +22,7 @@ mkdir /bld/cross-native
 cd /bld/cross-native
 
 export ac_cv_c_bigendian=no
+export ac_cv_header_fenv_h=no
 
 ../gnu/gcc-14.10/configure \
     --prefix=/usr \
